@@ -37,7 +37,7 @@
         </app-toolbar>
         <iron-selector id="drawer-nav" attr-for-selected="name" selected="[[page]]">
           <template is="dom-repeat" items="[[categories]]" as="category">
-            <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
+            <a name="[[category.name]]" href="../[[category.name]]">[[category.title]]</a>
           </template>
         </iron-selector>
       </app-drawer>
@@ -47,18 +47,16 @@
           <app-toolbar id="main-header">
             <div id="main-header-logo">
               <paper-icon-button id="main-header-logo-menu" icon="icons:menu" drawer-toggle hidden$="[[desktop]]"></paper-icon-button>
-              <a id="main-header-logo-home" href="home" mobile$=[[mobile]]>
+              <a id="main-header-logo-home" href="../home" mobile$=[[mobile]]>
                 <h1>
                   <img src="../images/logo.png">
-                  <span>CABASI</span>
                 </h1>
-                <iron-icon id="sync" icon="notification:sync" title="Syncing…" hidden$="[[!sync]]"></iron-icon>
               </a>
             </div>
             <div id="main-header-nav">
               <iron-selector attr-for-selected="name" selected="[[page]]" hidden$="[[mobile]]">
                 <template is="dom-repeat" items="[[categories]]" as="category">
-                  <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
+                  <a name="[[category.name]]" href="../[[category.name]]">[[category.title]]</a>
                 </template>
               </iron-selector>
             </div>
@@ -108,7 +106,7 @@
         routeChanged: function(e) {
           this.page = this.routeData.page || "home";
           Polymer.RenderStatus.afterNextRender(this, function() {
-            this.importHref(this.resolveUrl(this.page + '/page-' + this.page + '.html'), function() {
+            this.importHref(this.resolveUrl('../' + this.page + '/page-' + this.page + '.html'), function() {
                this.$.header.resetLayout();
             });
           });
