@@ -20,15 +20,14 @@
     <app-location route="{{route}}"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subRoute}}"></app-route>
 
-    <news-data
-        id="data"
+    <cabasi-data
         categories="{{categories}}"
         category-name="[[categoryName]]"
         category="{{category}}"
         loading="{{loading}}"
         offline="[[offline]]"
         failure="{{failure}}">
-    </news-data>
+    </cabasi-data>
 
     <app-drawer-layout responsive-width="640px">
 
@@ -36,17 +35,14 @@
         <app-toolbar>
           <h1 main-title>Menu</h1>
         </app-toolbar>
-
         <iron-selector id="drawer-nav" attr-for-selected="name" selected="[[page]]">
           <template is="dom-repeat" items="[[categories]]" as="category">
             <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
           </template>
         </iron-selector>
-
       </app-drawer>
 
       <app-header-layout>
-
         <app-header id="header"> 
           <app-toolbar id="main-header">
             <div id="main-header-logo">
@@ -67,23 +63,18 @@
               </iron-selector>
             </div>
           </app-toolbar>
-
         </app-header>
-
         <iron-pages
           selected="[[page]]"
           attr-for-selected="name"
           fallback-selection="home"
           role="main">
-          
           <page-home
             name="home" 
           </page-home>
-
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
-
     <iron-media-query query="min-width: 640px" query-matches="{{desktop}}"></iron-media-query>
     <iron-media-query query="max-width: 640px" query-matches="{{mobile}}"></iron-media-query>
   </template>
