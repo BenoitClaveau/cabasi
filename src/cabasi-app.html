@@ -65,7 +65,7 @@
         loadComplete: Boolean,
         _page: {
           type: String,
-          value: "master"
+          value: "loading"
         },
         page: String,
       },
@@ -79,6 +79,7 @@
       },
 
       ready: function() {
+        this.page = "master";
         Polymer.RenderStatus.afterNextRender(this, function() {
           this.listen(window, 'start-loading', 'startLoading');
           this.listen(window, 'stop-loading', 'stopLoading');
