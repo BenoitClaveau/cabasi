@@ -23,7 +23,6 @@
         --light-font-color: #666; 
         --white-color: #FFF; 
         --toolbar-color: #DCDCDC;
-
         --paper-toast-background-color: #1ca24d;
       }
       #pages {
@@ -63,9 +62,10 @@
       is: 'cabasi-app',
       properties: {
         loadingSetter: Object,
+        loadComplete: Boolean,
         _page: {
           type: String,
-          value: "loading"
+          value: "home"
         },
         page: String,
       },
@@ -83,14 +83,6 @@
           this.listen(window, 'start-loading', 'startLoading');
           this.listen(window, 'stop-loading', 'stopLoading');
         });
-      },
-
-      setPage: function(page) {
-        if (this.loadComplete) this.page = page;
-        else {
-          this.page = "loading";
-          this.prePage = page;
-        }
       },
 
       pageChanged: function() {
