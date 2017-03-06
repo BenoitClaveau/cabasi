@@ -1,0 +1,60 @@
+<dom-module id="page-loading">
+  <template>
+    <style>
+    #loadingScreen {
+      width: 100%;
+    }
+    #loadingScreen {
+      position: absolute;
+      top: 36%;
+      left: 0;
+      color: #333333();
+      text-align: center;
+      font-weight: 400;
+      font-family: arial, sans-serif;
+      padding-top: 32px;
+    }
+    #loadingScreen img {
+      width: 48.5px;
+      height: 64px;
+    }
+    #loadingScreen .title {
+      color: #999;
+      font-size: 14px;
+      margin-left: 16px;
+    }
+    #loadingScreen .spinner {
+      content: "";
+      position: absolute;
+      height: 2px;
+      background: var(--accent-color);
+      top: 0;
+      left: 0;
+      width: 100%;
+      animation: 1.2s loading infinite;
+      transform-origin: 100% 0;
+    }
+    @keyframes loading {
+      50% {
+        transform: scalex(0);
+      }
+      51% {
+        transform: translatex(-100vw);
+      }
+    }
+    </style>
+    <div id="loadingScreen">
+        <h1>
+          <img src="/images/logo.png">
+          <div class="title">loading...</div>
+        </h1>
+        <div class="spinner"></div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'page-loading'
+    });
+  </script>
+</dom-module>

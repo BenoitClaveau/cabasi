@@ -1,0 +1,85 @@
+<dom-module id="news-data">
+  <script>
+    Polymer({
+      is: 'cabasi-data',
+
+      properties: {
+        categories: {
+          type: Array,
+          value: [
+            { name: 'acceuil', title: 'Accueil'},
+            { name: 'contacts', title: 'Contacts'},
+            { name: 'Confidentialité', title: 'Règles de confidentialité'}
+          ],
+          readOnly: true
+        },
+        categoryName: String,
+        offline: Boolean,
+        sync: {
+          type: Boolean,
+          readOnly: true,
+          notify: true
+        },
+        category: {
+          type: Object,
+          computed: '_computeCategory(categoryName)',
+          notify: true
+        },
+        failure: {
+          type: Boolean,
+          readOnly: true,
+          notify: true
+        },
+
+      },
+
+      _computeCategory: function(categoryName) {
+        return this.categories.filter(function(category) {
+          return category === categoryName
+        })[0];
+      },
+
+      _formatHTML: function(html) {
+        var template = document.createElement('template');
+        template.innerHTML = html;
+        var images = template.content.querySelectorAll('img');
+        for (var i = 0; i < images.length; ++i) {
+          var img = images[i];
+          img.removeAttribute('width');
+          img.removeAttribute('height');
+        }
+
+        return template.content.querySelector('.content').innerHTML;
+      },
+
+      _fetch: function(url, callback, attempts, isRaw) {
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', function(e) {
+          this._setSync(false);
+          if (isRaw) {
+            callback(e.target.responseText);
+          } else {
+            callback(JSON.parse(e.target.responseText));
+          }
+        }.bind(this));
+        xhr.addEventListener('error', function(e) {
+          // Flaky connections might fail fetching resources
+          if (attempts > 1) {
+            this.debounce('_fetch', this._fetch.bind(this, url, callback, attempts - 1), 200);
+          } else {
+            this._setSync(false);
+            this._setFailure(true);
+          }
+        }.bind(this));
+
+        this._setSync(true);
+        this._setFailure(false);
+        xhr.open('GET', url);
+        xhr.send();
+      }
+
+    });
+
+  </script>
+
+</dom-module>

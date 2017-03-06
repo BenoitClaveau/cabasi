@@ -1,0 +1,118 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/helpers/helpers.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="page-loading.html">
+
+<dom-module id="cabasi-app">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex: 1 1 100%;
+      }
+      :root {
+        --primary-color: #37c76b;
+        --accent-color: #006eb6;
+        --active-color: #f60050;
+        --error-color: #ff0000;
+        --font-color: #333; 
+        --light-font-color: #666; 
+        --white-color: #FFF; 
+        --toolbar-color: #DCDCDC;
+
+        --paper-toast-background-color: #1ca24d;
+      }
+      #pages {
+        flex: 1 1 100%;
+      }
+      
+    </style>
+
+    <iron-localstorage
+      name="token" 
+      value="{{token}}"
+      on-iron-localstorage-load="loadToken"
+      on-iron-localstorage-load-empty="emptyToken">
+    </iron-localstorage>
+
+    <iron-pages 
+      id="pages"
+      attr-for-selected="name" 
+      selected="[[_page]]">
+
+      <page-master 
+        name="master" 
+        profile="[[profile]]">
+      </page-master>
+      
+      <page-loading 
+        name="loading">
+      </page-loading>
+
+    </iron-pages>
+  </template>
+
+  <script>
+    window.performance && performance.mark && performance.mark('cabasi-app');
+
+    Polymer({
+      is: 'cabasi-app',
+      properties: {
+        loadingSetter: Object,
+        _page: {
+          type: String,
+          value: "loading"
+        },
+        page: String,
+      },
+
+      observers: [
+        'pageChanged(page)'
+      ],
+
+      created: function() {
+        window.performance && performance.mark && performance.mark('cabasi-app.created');
+      },
+
+      ready: function() {
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.listen(window, 'start-loading', 'startLoading');
+          this.listen(window, 'stop-loading', 'stopLoading');
+        });
+      },
+
+      setPage: function(page) {
+        if (this.loadComplete) this.page = page;
+        else {
+          this.page = "loading";
+          this.prePage = page;
+        }
+      },
+
+      pageChanged: function() {
+        this.startLoading();
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          this.importHref(this.resolveUrl('page-' + this.page + '.html'), function() {
+            this.stopLoading();
+            Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
+          });
+        });
+      },
+
+      startLoading: function() {
+        this.loadingSetter = setTimeout(function() { 
+          this._page = "loading";
+        }.bind(this), 500);
+      },
+
+      stopLoading: function() {
+        clearTimeout(this.loadingSetter);
+        this._page = this.page;
+      },
+    });
+  </script>
+</dom-module>

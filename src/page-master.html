@@ -1,0 +1,128 @@
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="cabasi-data.html">
+
+<dom-module id="page-master">
+  <template>
+    <style include="shared-styles">
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subRoute}}"></app-route>
+
+    <news-data
+        id="data"
+        categories="{{categories}}"
+        category-name="[[categoryName]]"
+        category="{{category}}"
+        loading="{{loading}}"
+        offline="[[offline]]"
+        failure="{{failure}}">
+    </news-data>
+
+    <app-drawer-layout responsive-width="640px">
+
+      <app-drawer id="drawer" hidden$="[[desktop]]">
+        <app-toolbar>
+          <h1 main-title>Menu</h1>
+        </app-toolbar>
+
+        <iron-selector id="drawer-nav" attr-for-selected="name" selected="[[page]]">
+          <template is="dom-repeat" items="[[categories]]" as="category">
+            <a name="[[category.name]]" href="/[[category.name]]">[[category.title]]</a>
+          </template>
+        </iron-selector>
+
+      </app-drawer>
+
+      <app-header-layout>
+
+        <app-header id="header"> 
+          <app-toolbar id="main-header">
+            <div id="main-header-logo">
+              <paper-icon-button id="main-header-logo-menu" icon="icons:menu" drawer-toggle hidden$="[[desktop]]"></paper-icon-button>
+              <a id="main-header-logo-home" href="/home" mobile$=[[mobile]]>
+                <h1>
+                  <img src="/images/logo.png">
+                  <span>CABASI</span>
+                </h1>
+                <iron-icon id="sync" icon="notification:sync" title="Syncing…" hidden$="[[!sync]]"></iron-icon>
+              </a>
+            </div>
+            <div id="main-header-nav">
+              <iron-selector attr-for-selected="name" selected="[[page]]" hidden$="[[mobile]]">
+                <template is="dom-repeat" items="[[categories]]" as="category">
+                  <a name="[[category.name]]" href="/[[category.name]]">[[category.title]]</a>
+                </template>
+              </iron-selector>
+            </div>
+          </app-toolbar>
+
+        </app-header>
+
+        <iron-pages
+          selected="[[page]]"
+          attr-for-selected="name"
+          fallback-selection="home"
+          role="main">
+          
+          <page-home
+            name="home" 
+          </page-home>
+
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
+
+    <iron-media-query query="min-width: 640px" query-matches="{{desktop}}"></iron-media-query>
+    <iron-media-query query="max-width: 640px" query-matches="{{mobile}}"></iron-media-query>
+  </template>
+
+  <script>
+      Polymer({
+        is: 'page-master',
+
+        properties: {
+          route: Object,
+          routeData: Object,
+          subRoute: Object,
+          page: String,
+
+          //cabasi-data
+          categories: Array,
+          categoryName: String,
+          category: Object,
+          sync: Boolean,
+          offline: Boolean,
+          failure: Boolean
+        },
+
+        observers: [
+          'routeChanged(route.*)'
+        ],
+
+        ready: function() {
+        },
+
+        routeChanged: function(e) {
+          this.page = this.routeData.page || "home";
+          Polymer.RenderStatus.afterNextRender(this, function() {
+            this.importHref(this.resolveUrl(this.page + '/page-' + this.page + '.html'), function() {
+               this.$.header.resetLayout();
+            });
+          });
+        },
+
+      });
+  </script>
+</dom-module>
