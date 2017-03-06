@@ -107,7 +107,7 @@
         routeChanged: function(e) {
           this.page = this.routeData.page || "home";
           Polymer.RenderStatus.afterNextRender(this, function() {
-            this.importHref(this.resolveUrl('../' + this.page + '/page-' + this.page + '.html'), function() {
+            this.importHref(this.resolveUrl(this.page + '/page-' + this.page + '.html'), function() {
                this.$.header.resetLayout();
             });
           });
