@@ -52,8 +52,9 @@
   </template>
 
   <script>
-    Polymer({
-      is: 'page-loading'
-    });
+    class PageLoading extends Polymer.Element {
+      static get is() { return "page-loading"; }
+    }
+    customElements.define(PageLoading.is, PageLoading);
   </script>
 </dom-module>

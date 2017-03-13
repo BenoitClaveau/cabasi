@@ -1,0 +1,73 @@
+<dom-module id="cabasi-global">
+  <script>
+    class CabasiGlobal extends Polymer.Element {
+      static get is() { return "cabasi-global"; }
+
+      static get properties() {
+        return {
+          categories: {
+            type: Array,
+            value: [
+              { name: 'home', title: 'Accueil'},
+              { name: 'contacts', title: 'Contacts'},
+              { name: 'confidentiality', title: 'Règles de confidentialité'}
+            ],
+            readOnly: true,
+            notify: true
+          },
+          categoryName: String,
+          offline: Boolean,
+          sync: {
+            type: Boolean,
+            readOnly: true,
+            notify: true
+          },
+          category: {
+            type: Object,
+            computed: '_computeCategory(categoryName)',
+            notify: true
+          },
+          failure: {
+            type: Boolean,
+            readOnly: true,
+            notify: true
+          },
+        }
+      }
+
+      _computeCategory(categoryName) {
+        return this.categories.filter(function(category) {
+          return category === categoryName
+        })[0];
+      }
+
+      
+      _fetch(url, callback, attempts, isRaw) {
+        var xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', function(e) {
+          this._setSync(false);
+          if (isRaw) {
+            callback(e.target.responseText);
+          } else {
+            callback(JSON.parse(e.target.responseText));
+          }
+        }.bind(this));
+        xhr.addEventListener('error', function(e) {
+          // Flaky connections might fail fetching resources
+          if (attempts > 1) {
+            this.debounce('_fetch', this._fetch.bind(this, url, callback, attempts - 1), 200);
+          } else {
+            this._setSync(false);
+            this._setFailure(true);
+          }
+        }.bind(this));
+        this._setSync(true);
+        this._setFailure(false);
+        xhr.open('GET', url);
+        xhr.send();
+      }
+    }
+    customElements.define(CabasiGlobal.is, CabasiGlobal);
+  </script>
+
+</dom-module>

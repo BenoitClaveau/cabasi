@@ -15,9 +15,9 @@
         flex: 1 1 100%;
       }
       :root {
-        --primary-color: #37c76b;
+        --primary-color: #124882;
         --accent-color: #006eb6;
-        --active-color: #f60050;
+        --active-color: #ee6f0b;
         --error-color: #ff0000;
         --font-color: #333; 
         --light-font-color: #666; 
@@ -58,54 +58,57 @@
   <script>
     window.performance && performance.mark && performance.mark('cabasi-app');
 
-    Polymer({
-      is: 'cabasi-app',
-      properties: {
-        loadingSetter: Object,
-        loadComplete: Boolean,
-        _page: {
-          type: String,
-          value: "loading"
-        },
-        page: String,
-      },
+    class CabasiApp extends Polymer.Element {
+      static get is() { return "cabasi-app"; }
 
-      observers: [
-        'pageChanged(page)'
-      ],
+      static get properties() {
+        return {
+          loadingSetter: Object,
+          loadComplete: Boolean,
+          _page: {
+            type: String,
+            value: "loading"
+          },
+          page: String,
+        }
+      }
 
-      created: function() {
-        window.performance && performance.mark && performance.mark('cabasi-app.created');
-      },
+      static get observers() {
+        return [
+          'pageChanged(page)'
+        ]
+      }
 
-      ready: function() {
+      constructor() {
+        super();
         this.page = "master";
         Polymer.RenderStatus.afterNextRender(this, function() {
-          this.listen(window, 'start-loading', 'startLoading');
-          this.listen(window, 'stop-loading', 'stopLoading');
+          window.addEventListener('start-loading', this.startLoading);
+          window.addEventListener('stop-loading', this.stopLoading);
         });
-      },
-
-      pageChanged: function() {
+      }
+    
+      pageChanged() {
         this.startLoading();
         Polymer.RenderStatus.afterNextRender(this, function() {
-          this.importHref(this.resolveUrl('page-' + this.page + '.html'), function() {
+          Polymer.importHref(this.resolveUrl('page-' + this.page + '.html'), function() {
             this.stopLoading();
             Polymer.AppLayout.scroll({ top: 0, behavior: 'silent' });
-          });
+          }.bind(this));
         });
-      },
+      }
 
-      startLoading: function() {
+      startLoading() {
         this.loadingSetter = setTimeout(function() { 
           this._page = "loading";
         }.bind(this), 500);
-      },
+      }
 
-      stopLoading: function() {
+      stopLoading() {
         clearTimeout(this.loadingSetter);
         this._page = this.page;
-      },
-    });
+      }
+    }
+    customElements.define(CabasiApp.is, CabasiApp);
   </script>
 </dom-module>
