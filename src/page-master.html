@@ -13,68 +13,19 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="./components/icon-hamburger.html">
+<link rel="import" href="./components/app-menu.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="cabasi-global.html">
 
 <dom-module id="page-master">
   <template>
     <style include="shared-styles">
-      app-drawer-layout:not([narrow]) [drawer-toggle] {
-        display: none;
-      }
-      app-toolbar {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-      /*app-drawer*/
-      .drawer-list {
-        display: flex;
-        flex-direction: column;
-      }
-      .drawer-list a {
+      app-menu a {
         padding: 16px;
-        color: var(--font-color);
+        color: #FFF;
+        font-size: 24px;
         text-decoration: none;
-        border-left: 4px solid transparent;
-        outline: none;
-      }
-      .drawer-list a.iron-selected {
-        border-left: 4px solid var(--active-color);
-        color: var(--active-color);
-      }
-      /**/
-      .nav-list {
-        font-size: 16px;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: flex-end;
-        flex: 1 0 auto;
-      }
-      .nav-list a {
-        padding: 16px 8px;
-        color: var(--font-color);
-        text-decoration: none;
-      }
-      .nav-list a.iron-selected {
-        border-bottom: 2px solid var(--active-color);
-        padding-bottom: 14px;
-      }
-      /**/
-      [icon="icons:menu"] {
-        color: var(--primary-color);
-      }
-      #content {
-        min-height: calc(100vh - 178px);
-      }
-      /**/
-      footer {
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        font-size: 14px;
       }
     </style>
 
@@ -90,59 +41,35 @@
         failure="{{failure}}">
     </cabasi-global>
 
-    <app-scrollpos-control selected="[[categoryName]]"></app-scrollpos-control>
 
-    <app-drawer-layout id="app-drawer-layout" drawer-width="288px" responsive-width="9999px" fullbleed>
-      <app-drawer slot="drawer">
-        <app-toolbar>
-          <h1>
-            <img src="../images/logo.png">
-          </h1>
-        </app-toolbar>
-        <iron-selector attr-for-selected="name" selected="[[categoryName]]" class="drawer-list">
-          <template is="dom-repeat" items="[[categories]]" as="category">
-            <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
-          </template>
-        </iron-selector>
-      </app-drawer>
-      <app-header-layout>
-        <app-header slot="header" effects="waterfall" condenses reveals> 
-          <app-toolbar>
-            <div>
-              <paper-icon-button icon="icons:menu" drawer-toggle></paper-icon-button>
-              <img src="../images/logo.png">
-            </div>
-            <nav hidden$="[[mobile]]">
-              <iron-selector attr-for-selected="name" selected="[[categoryName]]" class="nav-list">
-                <template is="dom-repeat" items="[[categories]]" as="category">
-                  <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
-                </template>
-              </iron-selector>
-            </nav>
-          </app-toolbar>
-        </app-header>
+    <icon-hamburger open="{{menuOpen}}"></icon-hamburger>
+    <!--<paper-icon-button icon="icons:menu" on-tap="toggle"></paper-icon-button>-->
+    <app-menu open="{{menuOpen}}">
+      <template is="dom-repeat" items="[[categories]]" as="category">
+        <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
+      </template>
+    </app-menu>
 
-        <iron-pages
-          id="content"
-          selected="[[page]]"
-          attr-for-selected="name"
-          fallback-selection="home"
-          role="main">
-          <page-home
-            name="home"
-            category="[[category]]"
-          </page-home>
-        </iron-pages>
+    <iron-pages
+      id="content"
+      selected="[[page]]"
+      attr-for-selected="name"
+      fallback-selection="home"
+      role="main">
+      <page-home
+        name="home"
+        category="[[category]]"
+      </page-home>
+    </iron-pages>
 
-        <footer>
-          &copy; Polymer project
-        </footer>
-      </app-header-layout>
-    </app-drawer-layout>
-    <iron-media-query query="min-width: 640px" query-matches="{{desktop}}"></iron-media-query>
-    <iron-media-query query="max-width: 640px" query-matches="{{mobile}}"></iron-media-query>
+    <footer>
+      &copy; Polymer project
+    </footer>
   </template>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/CSSPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/TextPlugin.min.js"></script>
   <script>
     class PageMaster extends Polymer.Element {
       static get is() { return "page-master"; }
@@ -162,30 +89,41 @@
           offline: Boolean,
           failure: Boolean,
 
-          //repoonsive
-          desktop: Boolean,
-          mobile: Boolean
+          menuOpen: Boolean,
         }
       }
 
       static get observers() {
         return [
           'routeChanged(route.*)',
-          'categoriesChanged(categories)'
+          'categoriesChanged(categories)',
+          'menuOpenChanged(menuOpen)'
         ]
+      }
+
+      constructor() {
+        super();
       }
 
       routeChanged(e) {
         this.categoryName = this.routeData.page || "home";
         Polymer.RenderStatus.afterNextRender(this, function() {
           Polymer.importHref(this.resolveUrl(this.categoryName + '/page-' + this.categoryName + '.html'), function() {
-              this.$["app-drawer-layout"].resetLayout();
+              //this.$["app-drawer-layout"].resetLayout();
           }.bind(this));
         });
       }
 
       categoriesChanged(categories) {
         console.log("change", categories)
+      }
+
+      menuOpenChanged(menuOpen) {
+        if (menuOpen) {
+          var tl = new TimelineLite();
+          var a = this.root.querySelectorAll('app-menu a');
+          tl.staggerFrom(a, 0.5, {marginLeft:-300 }, 0.3);
+        }
       }
 
     }

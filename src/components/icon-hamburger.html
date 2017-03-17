@@ -1,0 +1,136 @@
+
+
+<dom-module id="icon-hamburger">
+  <template>
+    <style>
+      :host {
+        z-index: 9999;
+        position: absolute;
+      }
+      svg {
+        cursor: pointer;
+      }
+      svg path{
+          stroke: #000;
+          stroke-width: 6px;
+          stroke-linecap: round;
+          fill: transparent;
+      }
+    </style>
+
+    <!-- SVG element with paths -->
+    <svg id="svg" width="100px" height="100px" on-click="toggle" on-tap="toggle">
+        <path id="pathA" d="M 30 40 L 70 40 C 90 40 90 75 60 85 A 40 40 0 0 1 20 20 L 80 80"/>
+        <path id="pathB" d="M 30 50 L 70 50"/>
+        <path id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20"/>
+    </svg>
+    
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/segment-js/1.0.8/segment.js"></script>
+  <script>
+    class IconHamburger extends Polymer.Element {
+      static get is() { return "icon-hamburger"; }
+
+      static get properties() {
+        return {
+          open: {
+            type: Boolean,
+            notify: true
+          }
+        }
+      }
+
+      static get observers() {
+        return [
+          'openChanged(open)'
+        ]
+      }
+
+      constructor() {
+        super();
+        
+        this.segmentA = new Segment(this.$.pathA, 8, 32);
+        this.segmentB = new Segment(this.$.pathB, 8, 32);
+        this.segmentC = new Segment(this.$.pathC, 8, 32);
+
+      }
+
+      openChanged(open) {
+        if (open) this._onOpen();
+        else this._onClose();
+      }
+
+      toggle(e) {
+        if (this.open !== true) this._open(e);
+        else this._close(e);
+      }
+
+      _onOpen() {
+        this.inAC(this.segmentA);
+        this.inB(this.segmentB);
+        this.inAC(this.segmentC);
+        TweenLite.to(this.$.pathA, 1.5, {stroke:"#F1F1F1"});
+        TweenLite.to(this.$.pathB, 1.5, {stroke:"#F1F1F1"});
+        TweenLite.to(this.$.pathC, 1.5, {stroke:"#F1F1F1"});
+      }
+
+      _onClose() {
+        this.outAC(this.segmentA);
+        this.outB(this.segmentB);
+        this.outAC(this.segmentC);
+        TweenLite.to(this.$.pathA, 1.5, {stroke:"#0000"});
+        TweenLite.to(this.$.pathB, 1.5, {stroke:"#0000"});
+        TweenLite.to(this.$.pathC, 1.5, {stroke:"#0000"});
+      }
+
+      _open(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.set("open",true);
+        this.dispatchEvent(new CustomEvent('click', {detail: {open: true}}));
+      }
+      
+      _close(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.set("open",false);
+        this.dispatchEvent(new CustomEvent('click', {detail: {open: false}}));
+      }
+
+      // Linear section, with a callback to the next
+      inAC(s) { 
+        s.draw('80% - 24', '80%', 0.3, { delay: 0.1, callback: function() { this.inAC2(s) }.bind(this)}); 
+      }
+
+      inAC2(s) { 
+        s.draw('100% - 54.5', '100% - 30.5', 0.6, {easing: Elastic.easeIn}); 
+      }
+
+      inB(s) { 
+        s.draw(8 - 6, 32 + 6, 0.1, {callback: function(){ this.inB2(s) }.bind(this)}); 
+      }
+
+      inB2(s) { 
+        s.draw(8 + 12, 32 - 12, 0.3, {easing: Bounce.easeIn}); 
+      }
+
+      outAC(s) { 
+        s.draw('90% - 24', '90%', 0.1, {easing: Elastic.easeOut, callback: function(){ this.outAC2(s) }.bind(this)}); 
+      }
+
+      outAC2(s) { 
+        s.draw('20% - 24', '20%', 0.3, {callback: function(){ this.outAC3(s) }.bind(this)}); 
+      }
+      outAC3(s) { 
+        s.draw(8, 32, 0.7, {easing: Elastic.easeOut}); 
+      }
+
+      outB(s) { 
+        s.draw(8, 32, 0.7, {delay: 0.1, easing: Elastic.easeOut}); }
+
+    }
+    customElements.define(IconHamburger.is, IconHamburger);
+  </script>
+</dom-module>

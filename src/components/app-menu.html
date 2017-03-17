@@ -1,0 +1,80 @@
+<dom-module id="app-menu">
+  <template>
+    <style>
+      #backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255,255,255,0.4);
+        visibility: hidden;
+        opacity: 0;
+        z-index: 9997;
+        cursor: pointer;
+      }
+      #nav {
+        position: absolute;
+        background-color: rgba(0,0,0,0.8);
+        width: 320px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 96px 24px 24px 24px;
+        visibility: hidden;
+        opacity: 0;
+        z-index: 9998;
+      }
+    </style>
+
+    <div id="backdrop" on-tap="_close" on-click="_close"></div>
+    <nav id="nav" on-tap="_close" on-click="_close">
+      <slot></slot>
+    </nav>
+    
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script>
+    class AppMenu extends Polymer.Element {
+      static get is() { return "app-menu"; }
+
+      static get properties() {
+        return {
+          open: {
+            type: Boolean,
+            notify: true
+          }
+        }
+      }
+
+      static get observers() {
+        return [
+          'openChanged(open)'
+        ]
+      }
+
+      constructor() {
+        super();
+      }
+
+      openChanged(open) {
+        var tl = new TimelineLite();
+        if (open) {
+          tl.to(this.$.backdrop, 0.2, { autoAlpha:1, ease:Linear.easeNone});
+          tl.to(this.$.nav, 0.5, {left:0, autoAlpha:1, ease:Bounce.easeOut});
+          
+        }
+        else {
+          tl.to(this.$.nav, 0.3, {left:-320, autoAlpha:0, ease:Linear.easeNone});
+          tl.to(this.$.backdrop, 0.2, { autoAlpha:0, ease:Linear.easeNone});
+        }
+      }
+
+      _close() {
+        this.set("open", false);
+      }
+    }
+    customElements.define(AppMenu.is, AppMenu);
+  </script>
+</dom-module>

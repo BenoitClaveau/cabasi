@@ -1,48 +1,101 @@
 <dom-module id="page-home">
   <template>
     <style include="shared-styles">
-      #background {
-        background-image: url("/images/background/man.jpg");
-        background-size: cover;
-        position: absolute;
-        top: -64px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: -1;
-      }
       #content {
-        text-align: center;
+        background-image: url(/images/background/man.jpg);
+        background-size: cover;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
-      #cabasi {
+      h1, h2 {
+        margin: 0;
+        display: flex;
+        flex: 1 0 auto;
+      }
+      h1 {
         letter-spacing: 10px;
         font-size: 58px;
-        background-color: rgba(0,0,0,0.7);
-        color: #FFF;
-        padding: 8px;
+        color: var(--active-color);
       }
-      #sub {
-        font-size: 36px;
-        background-color: rgba(0,0,0,0.7);
-        color: #FFF;
-        padding: 8px;
+      h2 {
+        font-size: 32px;
+        color: var(--primary-color);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+      #sub1 {
+            color: rgba(17, 4, 33, 0.68);
+      }
+      #sub2 {
+            color: rgba(150, 77, 20, 0.61);
+      }
+      #sub3 {
+            color: rgba(17, 4, 33, 0.68);
+      }
+
+      #section1 {
+        background: linear-gradient(#1e0a37, #100903);
+        padding: 32px 0;
       }
       #thumbs img {
         margin: 32px;
       }
+      .row {
+        display: flex;
+        flex-direction: row;
+        width: 480px;
+        margin: 32px auto;
+        border-radius: 4px;
+      }
+      h3 {
+        color: #FFF;
+        font-size: 24px;
+      }
+      .thumb {
+        height: 128px;
+        width: 260px;
+      }
     </style>
 
-<div id="background"></div>
 <div id="content">
-  <h1><span id="cabasi"></span></h1>
-  <h2><span id="sub">Développons ensemble vos application</span></h2>
-  <div id="thumbs">
-    <img src="/images/applications/vsb/home.png" width="auto" height="128">
-    <img src="/images/applications/quactus/home.png" width="auto" height="128">
-    <img src="/images/applications/natureetdecouvertes/home.png" width="auto" height="128">
+  <h1 id="cabasi"></h1>
+  <h2 id="subs">
+    <div id="sub1">Développement&nbsp;</div>
+    <div id="sub2">Concéption&nbsp;</div>
+    <div id="sub3">Agilité&nbsp;</div>
+  </h2>
+</div>
+<div id="section1">
+  <div class="row">
+    <div class="thumb">
+      <img src="/images/applications/vsb/home.png" width="auto" height="128">
+    </div>
+    <div>
+      <h3>VSB</h3>
+    </div>
   </div>
-<div>
 
+  <div class="row">
+    <div class="thumb">
+      <img src="/images/applications/quactus/home.png" width="auto" height="128">
+    </div>
+    <div>
+      <h3>Quactus</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="thumb">
+      <img src="/images/applications/natureetdecouvertes/home.png" width="auto" height="128">
+    </div>
+    <div>
+      <h3>Nature & Découvertes</h3>
+    </div>
+  </div>
+</div>
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
@@ -57,11 +110,12 @@
         TweenLite.set(this.$.content, {visibility:"visible"})
         var tl = new TimelineLite();
         tl.to(this.$.cabasi, 1.5, { text:"CABASI", ease:Linear.easeNone });
-        tl.from(this.$.sub, 1, { scale:.5, opacity:0});
+        tl.add("stagger", "-=1.5");
+        tl.staggerFrom(this.$.subs.childNodes, 0.4, { scale:.8, opacity:0}, 0.3, "stagger");
         // tl.from(this.$.info, 0.5, {scale:.5, autoAlpha:0}, "+=0.5");
         // tl.from(this.$.description, 0.5, {left:100, autoAlpha:0}, "-=0.25");
-        tl.add("stagger", "+=0.5");
-        tl.staggerFrom(this.root.querySelectorAll('#thumbs img'), 0.2, {scale:0, autoAlpha:0}, 0.1, "stagger");
+        tl.add("stagger2", "-=1");
+        tl.staggerFrom(this.root.querySelectorAll('.row'), 1, {scale:0, autoAlpha:0}, 0.3, "stagger2");
       }
     }
     customElements.define(PageHome.is, PageHome);
