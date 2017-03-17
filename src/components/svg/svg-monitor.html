@@ -1,0 +1,68 @@
+<dom-module id="svg-monitor">
+  <template>
+    <style>
+    </style>
+
+    <svg id="svg" width="128" height="128" viewBox="0 0 512 512">
+      <path
+        id="monitor"
+        d="M 481.091,27.937 H 30.909 C 13.866,27.937 0,41.803 0,58.846 v 310.819 c 0,17.043 13.866,30.909 30.909,30.909 h 154.26 v 22.49 c 0,20.617 -16.774,37.391 -37.391,37.391 h -33.997 c -6.518,0 -11.803,5.284 -11.803,11.803 0,6.519 5.285,11.803 11.803,11.803 h 284.436 c 6.518,0 11.803,-5.284 11.803,-11.803 0,-6.519 -5.285,-11.803 -11.803,-11.803 h -33.998 c -20.617,0 -37.391,-16.774 -37.391,-37.391 v -22.489 h 154.26 c 17.043,0 30.91,-13.866 30.91,-30.909 V 58.846 C 512,41.803 498.134,27.937 481.091,27.937 Z M 195.92,460.457 c 8.046,-10.336 12.857,-23.308 12.857,-37.391 v -22.49 h 94.447 v 22.49 c 0,14.083 4.811,27.056 12.857,37.391 z m 292.474,-90.791 c 0,4.027 -3.276,7.304 -7.304,7.304 H 30.909 c -4.027,0 -7.304,-3.276 -7.304,-7.304 v -62.033 h 464.789 z m 0,-85.64 H 23.606 V 58.846 c 0,-4.027 3.276,-7.304 7.304,-7.304 h 450.18 c 4.027,0 7.305,3.276 7.305,7.304 v 225.18 z" />
+
+     <path
+        id="flash1"
+        d="m 276.238,109.254 c -4.61,-4.609 -12.081,-4.609 -16.693,0 l -83.414,83.414 c -4.609,4.609 -4.609,12.083 0,16.693 2.306,2.305 5.325,3.457 8.347,3.457 3.022,0 6.041,-1.152 8.346,-3.457 l 83.414,-83.414 c 4.609,-4.609 4.609,-12.083 0,-16.693 z" />
+     
+     <path
+        id="flash2"
+        d="M325.678,157.593c-4.608-4.609-12.079-4.609-16.692-0.001l-33.23,33.228c-4.609,4.61-4.609,12.084,0,16.693    c2.305,2.305,5.325,3.457,8.346,3.457c3.02,0,6.041-1.152,8.346-3.457l33.23-33.228    C330.287,169.676,330.287,162.202,325.678,157.593z" />
+        
+    <circle
+        id="circle"
+        r="12.738"
+        cy="342.305"
+        cx="256.003" />
+    </svg>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/segment-js/1.0.8/segment.js"></script>
+  <script>
+    class SvgMonitor extends Polymer.Element {
+      static get is() { return "svg-monitor"; }
+
+      constructor() {
+        super();
+
+        //var s = Snap(this.$.svg);
+
+        // var flash1 = s.select("#flash1");
+        // flash1.attr('display', 'none');
+
+        // var flash2 = s.select("#flash2");
+        // flash2.attr('display', 'none');
+        
+        // var circle = Snap(this.$.circle);
+        // circle.attr('display', 'none');
+
+        var timeline = new TimelineMax();
+
+        // The animation tweens
+        timeline.to(this.$.svg, 1, {x: 100, ease: Expo.easeOut})
+              .to(this.$.svg, 0.1, {scaleX: 1.04, transformOrigin: "50% 50%", ease: Expo.easeOut})
+              .to(this.$.svg, 0.1, {scaleY: 0.9, transformOrigin: "50% 100%", ease: Expo.easeOut}, '0')
+              .to(this.$.svg, 0.4, {scale: 1, transformOrigin: "50% 100%", ease: Elastic.easeOut});
+
+
+        
+        // new Segment(this.$.monitor, 50, 100).draw('0', '100%', 1.5, {easing: Elastic.easeIn, callback: function() {
+        //   flash1.attr('display', '');
+        //   flash2.attr('display', '');
+        //   circle.attr('display', '');
+        // }});
+        
+      }
+    }
+    customElements.define(SvgMonitor.is, SvgMonitor);
+  </script>
+</dom-module>

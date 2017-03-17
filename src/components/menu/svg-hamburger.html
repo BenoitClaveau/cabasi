@@ -1,6 +1,6 @@
 
 
-<dom-module id="icon-hamburger">
+<dom-module id="svg-hamburger">
   <template>
     <style>
       :host {
@@ -11,7 +11,7 @@
         cursor: pointer;
       }
       svg path{
-          stroke: #000;
+          stroke: var(--white-color);
           stroke-width: 6px;
           stroke-linecap: round;
           fill: transparent;
@@ -24,14 +24,13 @@
         <path id="pathB" d="M 30 50 L 70 50"/>
         <path id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20"/>
     </svg>
-    
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/segment-js/1.0.8/segment.js"></script>
   <script>
-    class IconHamburger extends Polymer.Element {
-      static get is() { return "icon-hamburger"; }
+    class SvgHamburger extends Polymer.Element {
+      static get is() { return "svg-hamburger"; }
 
       static get properties() {
         return {
@@ -71,18 +70,20 @@
         this.inAC(this.segmentA);
         this.inB(this.segmentB);
         this.inAC(this.segmentC);
-        TweenLite.to(this.$.pathA, 1.5, {stroke:"#F1F1F1"});
-        TweenLite.to(this.$.pathB, 1.5, {stroke:"#F1F1F1"});
-        TweenLite.to(this.$.pathC, 1.5, {stroke:"#F1F1F1"});
+        var color = window.getComputedStyle(this).getPropertyValue('--accent-color').trim();
+        TweenLite.to(this.$.pathA, 1.5, {stroke: color});
+        TweenLite.to(this.$.pathB, 1.5, {stroke: color});
+        TweenLite.to(this.$.pathC, 1.5, {stroke: color});
       }
 
       _onClose() {
         this.outAC(this.segmentA);
         this.outB(this.segmentB);
         this.outAC(this.segmentC);
-        TweenLite.to(this.$.pathA, 1.5, {stroke:"#0000"});
-        TweenLite.to(this.$.pathB, 1.5, {stroke:"#0000"});
-        TweenLite.to(this.$.pathC, 1.5, {stroke:"#0000"});
+        var color = window.getComputedStyle(this).getPropertyValue('--white-color').trim();
+        TweenLite.to(this.$.pathA, 1.5, {stroke: color});
+        TweenLite.to(this.$.pathB, 1.5, {stroke: color});
+        TweenLite.to(this.$.pathC, 1.5, {stroke: color});
       }
 
       _open(e) {
@@ -131,6 +132,6 @@
         s.draw(8, 32, 0.7, {delay: 0.1, easing: Elastic.easeOut}); }
 
     }
-    customElements.define(IconHamburger.is, IconHamburger);
+    customElements.define(SvgHamburger.is, SvgHamburger);
   </script>
 </dom-module>

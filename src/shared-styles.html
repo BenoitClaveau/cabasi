@@ -1,6 +1,16 @@
 <dom-module id="shared-styles">
   <template>
     <style>
+      .row {
+        display: flex;
+        flex-direction: row;
+      }
+      .row.center {
+        justify-content: center;
+      }
+      .flex {
+        flex: 1 0 auto;
+      }
       [hidden] {
         display: none !important;
         animation: none;

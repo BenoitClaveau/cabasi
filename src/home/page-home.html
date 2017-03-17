@@ -1,74 +1,65 @@
+<link rel="import" href="../components/svg/svg-cabasi.html">
+<link rel="import" href="../components/svg/svg-monitor.html">
+
 <dom-module id="page-home">
   <template>
     <style include="shared-styles">
-      #content {
-        background-image: url(/images/background/man.jpg);
-        background-size: cover;
-        height: 400px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      header {
+          display: flex;
+          justify-content: flex-end;
+          background-image: url(/images/background/code.jpeg);
+          background-size: cover;
+          height: 300px;
       }
-      h1, h2 {
-        margin: 0;
-        display: flex;
-        flex: 1 0 auto;
+      header > svg-cabasi {
+        background-color: rgba(0,0,0,0.5);
+        height: 48px;
+        padding: 12px 24px;
+        flex: 0 1 auto;
+        margin-top: 160px;
       }
-      h1 {
-        letter-spacing: 10px;
-        font-size: 58px;
-        color: var(--active-color);
-      }
-      h2 {
-        font-size: 32px;
-        color: var(--primary-color);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-      }
-      #sub1 {
-            color: rgba(17, 4, 33, 0.68);
-      }
-      #sub2 {
-            color: rgba(150, 77, 20, 0.61);
-      }
-      #sub3 {
-            color: rgba(17, 4, 33, 0.68);
-      }
-
-      #section1 {
-        background: linear-gradient(#1e0a37, #100903);
+      section {
+        background-color: var(--white-color);
         padding: 32px 0;
       }
-      #thumbs img {
-        margin: 32px;
-      }
-      .row {
-        display: flex;
-        flex-direction: row;
-        width: 480px;
-        margin: 32px auto;
-        border-radius: 4px;
-      }
-      h3 {
-        color: #FFF;
+      .words > div {
+        color: var(--font-color);
         font-size: 24px;
+        padding: 0 24px;
       }
-      .thumb {
-        height: 128px;
-        width: 260px;
+      article {
+        color: var(--light-font-color);
+        margin: 64px;
+      }
+      article h2 {
+        font-size: 24px;
+        color: var(--font-color);
       }
     </style>
 
-<div id="content">
-  <h1 id="cabasi"></h1>
-  <h2 id="subs">
-    <div id="sub1">Développement&nbsp;</div>
-    <div id="sub2">Concéption&nbsp;</div>
-    <div id="sub3">Agilité&nbsp;</div>
-  </h2>
-</div>
-<div id="section1">
+<header>
+  <svg-cabasi></svg-cabasi>
+</header>
+<section>
+  <div class="words row center">
+    <div>Web</div>
+    <div>Mobile</div>
+    <div>Intranet</div>
+  </div>
+
+  <article>
+    <h2>Technologie</h2>
+    <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+  </article>
+
+  <article>
+    <h2>Méthodologie</h2>
+    <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+  </article>
+
+</section>
+
+<!--<section>
   <div class="row">
     <div class="thumb">
       <img src="/images/applications/vsb/home.png" width="auto" height="128">
@@ -95,27 +86,25 @@
       <h3>Nature & Découvertes</h3>
     </div>
   </div>
-</div>
+</section>-->
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/CSSPlugin.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/TextPlugin.min.js"></script>
   <script>
     class PageHome extends Polymer.Element {
       static get is() { return "page-home"; }
 
       constructor() {
         super();
-        TweenLite.set(this.$.content, {visibility:"visible"})
+        //TweenLite.set(this.$.content, {visibility:"visible"})
         var tl = new TimelineLite();
-        tl.to(this.$.cabasi, 1.5, { text:"CABASI", ease:Linear.easeNone });
-        tl.add("stagger", "-=1.5");
-        tl.staggerFrom(this.$.subs.childNodes, 0.4, { scale:.8, opacity:0}, 0.3, "stagger");
+        //tl.to(this.$.cabasi, 1.5, { text:"CABASI", ease:Linear.easeNone });
+        // tl.add("stagger", "-=1.5");
+        // tl.staggerFrom(this.$.subs.childNodes, 0.4, { scale:.8, opacity:0}, 0.3, "stagger");
         // tl.from(this.$.info, 0.5, {scale:.5, autoAlpha:0}, "+=0.5");
         // tl.from(this.$.description, 0.5, {left:100, autoAlpha:0}, "-=0.25");
-        tl.add("stagger2", "-=1");
-        tl.staggerFrom(this.root.querySelectorAll('.row'), 1, {scale:0, autoAlpha:0}, 0.3, "stagger2");
+        //tl.add("stagger2", "-=1");
+        tl.staggerFrom(this.root.querySelectorAll('.words > *'), 0.75, {delay: 1, scale:"5%", autoAlpha:0}, 0.3);
       }
     }
     customElements.define(PageHome.is, PageHome);

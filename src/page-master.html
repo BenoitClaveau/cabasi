@@ -13,8 +13,7 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="./components/icon-hamburger.html">
-<link rel="import" href="./components/app-menu.html">
+<link rel="import" href="./components/menu/app-menu.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="cabasi-global.html">
 
@@ -26,6 +25,12 @@
         color: #FFF;
         font-size: 24px;
         text-decoration: none;
+      }
+      footer {
+        color: var(--light-color);
+        font-size: 18px;
+        line-height: 32px;
+        text-align: center;
       }
     </style>
 
@@ -40,10 +45,7 @@
         offline="[[offline]]"
         failure="{{failure}}">
     </cabasi-global>
-
-
-    <icon-hamburger open="{{menuOpen}}"></icon-hamburger>
-    <!--<paper-icon-button icon="icons:menu" on-tap="toggle"></paper-icon-button>-->
+    
     <app-menu open="{{menuOpen}}">
       <template is="dom-repeat" items="[[categories]]" as="category">
         <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
@@ -63,13 +65,11 @@
     </iron-pages>
 
     <footer>
-      &copy; Polymer project
+      &copy; CABASI
     </footer>
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/CSSPlugin.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/plugins/TextPlugin.min.js"></script>
   <script>
     class PageMaster extends Polymer.Element {
       static get is() { return "page-master"; }
