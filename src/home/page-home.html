@@ -4,6 +4,27 @@
 <dom-module id="page-home">
   <template>
     <style include="shared-styles">
+			#container {
+				height: 100%;
+				width: 100%;
+				overflow: visible;
+			}
+			#container > section {
+				height: 100vh;
+				width: 100%;
+				position: absolute;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			#main {
+				height: 100vh;
+				width: 100%;
+			}
+			#info {
+				visibility: hidden;
+			}
       header {
           display: flex;
           justify-content: flex-end;
@@ -18,94 +39,129 @@
         flex: 0 1 auto;
         margin-top: 160px;
       }
-      section {
-        background-color: var(--white-color);
-        padding: 32px 0;
-      }
       .words > div {
         color: var(--font-color);
         font-size: 24px;
         padding: 0 24px;
       }
-      article {
+			article {
+				margin: 0 auto;
+				max-width: 480px;
+			}
+      p {
         color: var(--light-font-color);
         margin: 64px;
+				font-size: 18px;
       }
-      article h2 {
-        font-size: 24px;
+      h2 {
+        font-size: 28px;
         color: var(--font-color);
       }
+			#main {
+				background-color: var(--white-color);
+			}
+			#tech {
+				background-color: rgb(33, 30, 26);
+				color: var(--white-color);
+			}
+			#meth {
+				background-color: rgb(204, 116, 0);
+				color: var(--white-color);
+			}
     </style>
 
-<header>
-  <svg-cabasi></svg-cabasi>
-</header>
-<section>
-  <div class="words row center">
-    <div>Web</div>
-    <div>Mobile</div>
-    <div>Intranet</div>
-  </div>
 
-  <article>
-    <h2>Technologie</h2>
-    <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
-  </article>
+<div id="template">
 
-  <article>
-    <h2>Méthodologie</h2>
-    <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
-  </article>
+	<section id="main">
+		<header>
+			<svg-cabasi></svg-cabasi>
+		</header>
+		<div class="words row center">
+			<div>Web</div>
+			<div>Mobile</div>
+			<div>Intranet</div>
+		</div>
+	</section>
 
-</section>
+  <div id="container">
 
-<!--<section>
-  <div class="row">
-    <div class="thumb">
-      <img src="/images/applications/vsb/home.png" width="auto" height="128">
-    </div>
-    <div>
-      <h3>VSB</h3>
-    </div>
-  </div>
+		<section id="info">
+			<article>
+				<h2>Technologie</h2>
+				<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+			</article>
+		</section>
 
-  <div class="row">
-    <div class="thumb">
-      <img src="/images/applications/quactus/home.png" width="auto" height="128">
-    </div>
-    <div>
-      <h3>Quactus</h3>
-    </div>
-  </div>
+		<section id="tech">
+			<article>
+				<h2>Technologie</h2>
+				<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+			</article>
+		</section>
 
-  <div class="row">
-    <div class="thumb">
-      <img src="/images/applications/natureetdecouvertes/home.png" width="auto" height="128">
-    </div>
-    <div>
-      <h3>Nature & Découvertes</h3>
-    </div>
-  </div>
-</section>-->
+		<section id="meth">
+			<article>
+				<h2>Technologie</h2>
+				<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+			</article>
+		</section>
+	</div>
+</div>
+
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.js"></script>
   <script>
     class PageHome extends Polymer.Element {
       static get is() { return "page-home"; }
 
       constructor() {
         super();
+
         //TweenLite.set(this.$.content, {visibility:"visible"})
-        var tl = new TimelineLite();
+        //var tl = new TimelineLite();
         //tl.to(this.$.cabasi, 1.5, { text:"CABASI", ease:Linear.easeNone });
         // tl.add("stagger", "-=1.5");
         // tl.staggerFrom(this.$.subs.childNodes, 0.4, { scale:.8, opacity:0}, 0.3, "stagger");
         // tl.from(this.$.info, 0.5, {scale:.5, autoAlpha:0}, "+=0.5");
         // tl.from(this.$.description, 0.5, {left:100, autoAlpha:0}, "-=0.25");
         //tl.add("stagger2", "-=1");
-        tl.staggerFrom(this.root.querySelectorAll('.words > *'), 0.75, {delay: 1, scale:"5%", autoAlpha:0}, 0.3);
+							
+							var tl = new TimelineLite();
+							tl.staggerFrom(this.root.querySelectorAll('.words > *'), 0.75, {delay: 1, scale:"5%", autoAlpha:0}, 0.3);
+
+							var controller = new ScrollMagic.Controller();
+							// define movement of panels
+							var wipeAnimation = new TimelineMax()
+								.fromTo(this.$.tech, 1, {x: "-100%", autoAlpha: 1}, {x: "0%", ease: Linear.easeNone})  // in from left
+								.fromTo(this.$.meth,    1, {x:  "100%", autoAlpha: 1}, {x: "0%", ease: Linear.easeNone})  // in from right
+							//	.fromTo(this.root.querySelector("section.panel.bordeaux"), 1, {y: "-100%"}, {y: "0%", ease: Linear.easeNone}); // in from top
+							// create scene to pin and link animation
+							new ScrollMagic.Scene({
+									triggerElement: this.$.container,
+									triggerHook: "onLeave",
+									duration: "100%"
+								})
+								.setPin(this.$.container)
+								.setTween(wipeAnimation)
+								.addIndicators() // add indicators (requires plugin)
+								.addTo(controller);
       }
+
+						connectedCallback() {
+  						super.connectedCallback();
+
+							//buf fix otherwise text is display
+							setTimeout(function() {
+								this.$.info.style.visibility = "initial";
+							}.bind(this), 250);
+						}
+
+			
     }
     customElements.define(PageHome.is, PageHome);
   </script>

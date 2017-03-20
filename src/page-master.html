@@ -26,6 +26,10 @@
         font-size: 24px;
         text-decoration: none;
       }
+      #pages {
+        height: 100%;
+        width: 100%;
+      }
       footer {
         color: var(--light-color);
         font-size: 18px;
@@ -53,7 +57,7 @@
     </app-menu>
 
     <iron-pages
-      id="content"
+      id="pages"
       selected="[[page]]"
       attr-for-selected="name"
       fallback-selection="home"
@@ -64,9 +68,9 @@
       </page-home>
     </iron-pages>
 
-    <footer>
+    <!--<footer>
       &copy; CABASI
-    </footer>
+    </footer>-->
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
