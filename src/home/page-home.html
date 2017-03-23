@@ -151,8 +151,12 @@
 
 			static get properties() {
         return {
-          container: Object,
-          controller: Object
+          container: {
+						type: Object
+					},
+          controller: {
+						type: Object
+					}
         }
       }
 
@@ -192,7 +196,6 @@
 								//.addIndicators() // add indicators (requires plugin)
 								.addTo(this.controller);
 
-
 								// var svgs = this.root.querySelector(".words")
 								// Snap.load("images/icons/internet-speed.svg", function (image) {
 								// 	//s.append(image);
@@ -224,6 +227,11 @@
 
 						onResize() {
 							this.controller.update();
+						}
+
+						scrollToCategory(category) {
+							var e = this.root.querySelector("#" + category.id);
+							this.controller.scrollTo(e);
 						}
 
 			

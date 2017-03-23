@@ -20,8 +20,8 @@
 <dom-module id="page-master">
   <template>
     <style include="shared-styles">
-      app-menu a {
-        padding: 16px;
+      app-menu > * {
+        padding: 12px;
         color: #FFF;
         font-size: 24px;
         text-decoration: none;
@@ -51,9 +51,14 @@
     </cabasi-global>
     
     <app-menu open="{{menuOpen}}">
-      <template is="dom-repeat" items="[[categories]]" as="category">
-        <a name="[[category.name]]" href="[[category.name]]">[[category.title]]</a>
-      </template>
+      <!--<template is="dom-repeat" items="[[categories]]" as="category">
+        <a name="[[category.name]]" href="#" on-click="onMenuClick">[[category.title]]</a>
+      </template>-->
+      <div>#NodeJS</div>
+      <div>#WebComponents</div>
+      <div>#Polymer</div>
+      <div>#Agilité</div>
+      <div>#Hébergement</div>
     </app-menu>
 
     <iron-pages
@@ -63,6 +68,7 @@
       fallback-selection="home"
       role="main">
       <page-home
+        id="home"
         name="home"
         category="[[category]]"
       </page-home>
@@ -94,6 +100,7 @@
           failure: Boolean,
 
           menuOpen: Boolean,
+          controller:Object,
         }
       }
 
@@ -130,6 +137,11 @@
         }
       }
 
+      onMenuClick(e) {
+        e.preventDefault();
+        var item = e.model.get("category");
+        this.$.home.scrollToCategory(item);
+      }
     }
     customElements.define(PageMaster.is, PageMaster);
   </script>
