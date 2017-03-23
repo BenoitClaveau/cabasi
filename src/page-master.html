@@ -39,7 +39,7 @@
     </style>
 
     <app-location route="{{route}}"></app-location>
-    <app-route route="{{route}}" pattern="/cabasi/:page" data="{{routeData}}" tail="{{subRoute}}"></app-route>
+    <app-route route="{{route}}" pattern=":page" data="{{routeData}}" tail="{{subRoute}}"></app-route>
 
     <cabasi-global
         categories="{{categories}}"
@@ -112,7 +112,7 @@
       routeChanged(e) {
         this.categoryName = /*this.routeData.page || */"home";
         Polymer.RenderStatus.afterNextRender(this, function() {
-          Polymer.importHref(this.resolveUrl("cabasi/" + this.categoryName + '/page-' + this.categoryName + '.html'), function() {
+          Polymer.importHref(this.resolveUrl(this.categoryName + '/page-' + this.categoryName + '.html'), function() {
               //this.$["app-drawer-layout"].resetLayout();
           }.bind(this));
         });
