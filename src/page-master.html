@@ -117,7 +117,7 @@
       routeChanged(e) {
         this.categoryName = /*this.routeData.page || */"home";
         Polymer.RenderStatus.afterNextRender(this, function() {
-          Polymer.importHref(this.resolveUrl("/cabasi/" + this.categoryName + '/page-' + this.categoryName + '.html'), function() {
+          Polymer.importHref(this.resolveUrl("/cabasi/src/" + this.categoryName + '/page-' + this.categoryName + '.html'), function() {
               //this.$["app-drawer-layout"].resetLayout();
           }.bind(this));
         });
