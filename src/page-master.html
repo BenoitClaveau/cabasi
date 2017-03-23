@@ -67,16 +67,14 @@
       attr-for-selected="name"
       fallback-selection="home"
       role="main">
+
       <page-home
         id="home"
         name="home"
-        category="[[category]]"
+        category="[[category]]">
       </page-home>
+      
     </iron-pages>
-
-    <!--<footer>
-      &copy; CABASI
-    </footer>-->
   </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
@@ -135,12 +133,6 @@
           var a = this.root.querySelectorAll('app-menu a');
           tl.staggerFrom(a, 0.5, {marginLeft:-300 }, 0.3);
         }
-      }
-
-      onMenuClick(e) {
-        e.preventDefault();
-        var item = e.model.get("category");
-        this.$.home.scrollToCategory(item);
       }
     }
     customElements.define(PageMaster.is, PageMaster);

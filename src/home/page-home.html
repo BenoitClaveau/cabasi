@@ -100,7 +100,7 @@
 		</div>
 	</section>
 
-  <div id="container" hidden>
+  <div id="container">
 
 		<section id="info">
 			<article>
@@ -228,12 +228,6 @@
 						onResize() {
 							this.controller.update();
 						}
-
-						scrollToCategory(category) {
-							var e = this.root.querySelector("#" + category.id);
-							this.controller.scrollTo(e);
-						}
-
 			
     }
     customElements.define(PageHome.is, PageHome);
