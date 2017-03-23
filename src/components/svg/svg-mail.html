@@ -1,0 +1,63 @@
+<dom-module id="svg-mail">
+  <template>
+    <style>
+			svg {
+        height: 40px;
+        width: 40px;
+      }
+    </style>
+
+		<svg id="svg" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+			<path id="path" style="fill:rgb(202, 94, 21)" d="m 1685.6948,663.72881 0,699.79659 q 0,58.1695 -41.4237,99.5932 -41.4237,41.4238 -99.5932,41.4238 l -1297.35587,0 q -58.16949,0 -99.59322,-41.4238 -41.42373,-41.4237 -41.42373,-99.5932 l 0,-699.79659 q 38.77967,43.18644 89.01695,76.67797 319.05085,216.81356 438.0339,304.06782 50.23729,37.0169 81.52542,57.7288 31.28814,20.7118 83.28814,42.3051 52,21.5932 96.94915,21.5932 l 1.76271,0 q 44.94915,0 96.94915,-21.5932 52,-21.5933 83.2881,-42.3051 31.2881,-20.7119 81.5254,-57.7288 149.8305,-108.4068 438.9152,-304.06782 50.2373,-34.37288 88.1356,-76.67797 z m 0,-259.11864 q 0,69.62712 -43.1864,133.08474 -43.1865,63.45763 -107.5254,108.40678 -331.3899,230.0339 -412.4746,286.44068 -8.8136,6.16949 -37.4576,26.88136 -28.6441,20.71186 -47.5932,33.49152 -18.9492,12.77965 -45.83049,28.64405 -26.88135,15.8644 -50.67796,23.7966 -23.79661,7.9322 -44.0678,7.9322 l -1.76271,0 q -20.27119,0 -44.0678,-7.9322 -23.79661,-7.9322 -50.67796,-23.7966 -26.88136,-15.8644 -45.83051,-28.64405 Q 735.59322,980.13559 706.94915,959.42373 678.30508,938.71186 669.49152,932.54237 589.28813,876.13559 438.57627,771.69491 287.8644,667.25424 257.8983,646.10169 203.25424,609.08475 154.77966,544.30508 106.30508,479.52542 106.30508,424 q 0,-68.74576 36.57628,-114.57627 36.57627,-45.83051 104.44067,-45.83051 l 1297.35587,0 q 57.2881,0 99.1525,41.42373 41.8644,41.42373 41.8644,99.59322 z"/>
+		</svg>
+
+    <!--<div id="text">INTRANET</div>-->
+
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script>
+    class SvgMail extends Polymer.Element {
+      static get is() { return "svg-mail"; }
+
+      static get properties() {
+        return {
+          container: Object,
+          controller: Object
+        }
+      }
+
+      static get observers() {
+        return [
+          'containerChanged(container, controller)',
+        ]
+      }
+
+      constructor() {
+        super();
+      }
+
+      containerChanged(container, controller) {
+        if (!container || !controller) return;
+
+				this.pathPrepare(this.$.path);
+
+				var tween = new TimelineMax()
+					.add(TweenMax.to(this.$.path, 1, {strokeDashoffset: 0, ease:Linear.easeNone}))  
+					.add(TweenMax.to(this.$.path, 1, {stroke: "#33629c", ease:Linear.easeNone}), 0);			// change color during the whole thing
+				// build scene
+				var scene = new ScrollMagic.Scene({triggerElement: container, duration: 200, tweenChanges: true})
+								.setTween(tween)
+								.addIndicators() // add indicators (requires plugin)
+								.addTo(controller);
+      }
+
+			pathPrepare (el) {
+				var lineLength = el.getTotalLength();
+				el.style.strokeDasharray = lineLength;
+				el.style.strokeDashoffset = lineLength;
+			}
+    }
+    customElements.define(SvgMail.is, SvgMail);
+  </script>
+</dom-module>

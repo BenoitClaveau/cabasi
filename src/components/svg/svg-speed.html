@@ -1,0 +1,67 @@
+<dom-module id="svg-speed">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      div {
+        font-size: 16px;
+        color: #FFF;
+        font-weight: 600;
+      }
+      svg {
+        height: 64px;
+        width: 64px;
+      }
+      @media screen and (min-width: 480px) {
+        #text {
+          font-size: 22px;
+          width: auto;
+        }
+        svg {
+          height: 128px;
+          width: 128px;
+        }
+      }
+    </style>
+
+    <svg id="svg" viewbox="0 0 1010 1010">
+      <path id="speed_2_" style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M504.975,755.843
+				c-138.529,0-250.822-112.33-250.822-250.822c0-138.516,112.293-250.87,250.822-250.87c138.553,0,250.871,112.354,250.871,250.87
+				C755.846,643.513,643.529,755.843,504.975,755.843z M505,291.801c-117.707,0-213.146,95.476-213.146,213.219
+				c0,117.682,95.439,213.158,213.146,213.158c117.756,0,213.146-95.476,213.146-213.158
+				C718.146,387.277,622.755,291.801,505,291.801z"/>
+      <path style="fill-rule:evenodd;clip-rule:evenodd;fill:#0099CC;" d="M659.011,505.743h-23.125c0-0.196,0.025-0.453,0.025-0.722
+        c0-25.537-7.374-49.25-19.965-69.338c5.242-7.349,10.436-14.661,14.355-20.088c18.03,25.22,28.735,56.049,28.735,89.425
+        C659.035,505.29,659.011,505.547,659.011,505.743z"/>
+      <path id="arrow" style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M527.635,476.972l91.74-89.4
+        c0,0-60.507,112.427-61.34,113.995C550.637,481.737,527.635,476.972,527.635,476.972z"/>
+      <path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FC6220;" d="M505,374.086c-69.694,0-126.525,54.505-130.543,123.231
+        h28.122v16.915h-50.758v-8.489h-0.784c0-0.196-0.074-0.453-0.074-0.722c0-85.113,68.983-154.06,154.06-154.06
+        c34.54,0,66.337,11.526,91.985,30.731l-17.221,15.935C558.599,382.807,532.828,374.086,505,374.086z"/>
+      <path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M507.278,490.262c22.782,0,41.253,18.482,41.253,41.215
+        c0,22.831-18.471,41.289-41.253,41.289c-22.782,0-41.252-18.459-41.252-41.289C466.026,508.744,484.496,490.262,507.278,490.262
+        z"/>
+    </svg>
+
+    <div id="text">RAPIDITE</div>
+
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+  <script>
+    class SvgSpeed extends Polymer.Element {
+      static get is() { return "svg-speed"; }
+
+      constructor() {
+        super();
+        TweenLite.from(this.$.svg, 0.5, { autoAlpha: 0, ease: Linear.easeOut, delay: 3, transformOrigin:"50% 50%" });
+        TweenLite.from(this.$.text, 1, { autoAlpha: 0, ease: Linear.easeOut, delay: 3 });
+        TweenLite.from(this.$.arrow, 3, { rotation: -90, ease: Elastic.easeOut, delay: 3, transformOrigin:"-25% 125%" });
+      }
+    }
+    customElements.define(SvgSpeed.is, SvgSpeed);
+  </script>
+</dom-module>

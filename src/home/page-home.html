@@ -1,5 +1,10 @@
 <link rel="import" href="../components/svg/svg-cabasi.html">
 <link rel="import" href="../components/svg/svg-monitor.html">
+<link rel="import" href="../components/svg/svg-speed.html">
+<link rel="import" href="../components/svg/svg-intranet.html">
+<link rel="import" href="../components/svg/svg-web.html">
+<link rel="import" href="../components/svg/svg-mobile.html">
+<link rel="import" href="../components/svg/svg-mail.html">
 
 <dom-module id="page-home">
   <template>
@@ -21,52 +26,65 @@
 			#main {
 				height: 100vh;
 				width: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				background-image: url(/images/background/code3.jpeg);
+				background-size: cover;
+				color: var(--light-font-color);
 			}
-			#info {
-				visibility: hidden;
+			#info, #contact {
+				color: var(--light-font-color);
+				background-color: var(--white-color);
 			}
-      header {
-          display: flex;
-          justify-content: flex-end;
-          background-image: url(/images/background/code.jpeg);
-          background-size: cover;
-          height: 300px;
-      }
-      header > svg-cabasi {
-        background-color: rgba(0,0,0,0.5);
-        height: 48px;
-        padding: 12px 24px;
-        flex: 0 1 auto;
-        margin-top: 160px;
-      }
-      .words > div {
-        color: var(--font-color);
-        font-size: 24px;
-        padding: 0 24px;
-      }
+			#contact h2 {
+				color: rgb(202, 94, 21);
+				line-height: 40px;
+				display: flex;
+			}
+			#contact h2 > * {
+				margin-right: 16px;
+			}
+			#contact p {
+				text-align: center;
+				font-size: 24px;
+			}
+			#contact p a {
+				color: rgb(80, 79, 77);
+			}
+			#digital {
+				background-color: rgb(80, 79, 77);
+    		color: rgb(226, 226, 226);
+			}
+			#meth {
+				background-color: rgb(202, 94, 21);
+    		color: rgb(243, 225, 202);
+			}
+			svg-cabasi {
+				margin-bottom: 32px;
+			}
 			article {
 				margin: 0 auto;
 				max-width: 480px;
+				padding: 0 32px;
 			}
       p {
-        color: var(--light-font-color);
-        margin: 64px;
 				font-size: 18px;
       }
       h2 {
         font-size: 28px;
-        color: var(--font-color);
       }
-			#main {
-				background-color: var(--white-color);
+			.badges > * {
+				margin: 0 16px;
 			}
-			#tech {
-				background-color: rgb(33, 30, 26);
-				color: var(--white-color);
-			}
-			#meth {
-				background-color: rgb(204, 116, 0);
-				color: var(--white-color);
+			@media screen and (min-width: 480px) {
+				p {
+					font-size: 24px;
+				}
+				h2 {
+					font-size: 34px;
+				}
 			}
     </style>
 
@@ -74,38 +92,48 @@
 <div id="template">
 
 	<section id="main">
-		<header>
-			<svg-cabasi></svg-cabasi>
-		</header>
-		<div class="words row center">
-			<div>Web</div>
-			<div>Mobile</div>
-			<div>Intranet</div>
+		<svg-cabasi></svg-cabasi>
+		<div class="badges row center wrap">
+			<svg-web></svg-web>
+			<svg-intranet></svg-intranet>
+			<svg-mobile></svg-mobile>
 		</div>
 	</section>
 
-  <div id="container">
+  <div id="container" hidden>
 
 		<section id="info">
 			<article>
-				<h2>Technologie</h2>
-				<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+				<h2>NOTRE EXPERTISE</h2>
+				<p>Parce que l'expertise est fondamentale, nous avons développé notre propre framework autour de NodeJS. Nous avons une maîtrise de 100% de nos projets.</p>
+				<p><small>QwebsJS est notre outil Open Source.</small>
 			</article>
 		</section>
 
-		<section id="tech">
+		<section id="digital">
 			<article>
-				<h2>Technologie</h2>
-				<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+				<h2>DIGITAL</h2>
+				<p>Notre investissement se résume en 2 mots. HTML5 et Web Composants. Rien de plus que le standard.</p>
 			</article>
 		</section>
 
 		<section id="meth">
 			<article>
-				<h2>Technologie</h2>
-				<p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions, et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en tout cas comparable avec celle du français standard. De nombreuses suites logicielles de mise en page ou éditeurs de sites Web ont fait du Lorem Ipsum leur faux texte par défaut, et une recherche pour 'Lorem Ipsum' vous conduira vers de nombreux sites qui n'en sont encore qu'à leur phase de construction. Plusieurs versions sont apparues avec le temps, parfois par accident, souvent intentionnellement (histoire d'y rajouter de petits clins d'oeil, voire des phrases embarassantes).</p>
+				<h2>AGILE</h2>
+				<p>Nos projets sont 100% Agile. Découvrez les bienfaits de la livraison continue.</p>
 			</article>
 		</section>
+
+		<section id="contact">
+			<article>
+				<h2>
+					<svg-mail></svg-mail>
+					<span>NOUS CONTACTER</span>
+				</h2>
+				<p><a href="mailto:contact@cabasi.fr">contact@cabasi.fr</a></p>
+			</article>
+		</section>
+
 	</div>
 </div>
 
@@ -115,13 +143,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/segment-js/1.0.8/segment.js"></script>
   <script>
     class PageHome extends Polymer.Element {
       static get is() { return "page-home"; }
 
+			static get properties() {
+        return {
+          container: Object,
+          controller: Object
+        }
+      }
+
       constructor() {
         super();
-
+				this.set("container", this.$.container);
         //TweenLite.set(this.$.content, {visibility:"visible"})
         //var tl = new TimelineLite();
         //tl.to(this.$.cabasi, 1.5, { text:"CABASI", ease:Linear.easeNone });
@@ -131,34 +168,62 @@
         // tl.from(this.$.description, 0.5, {left:100, autoAlpha:0}, "-=0.25");
         //tl.add("stagger2", "-=1");
 							
-							var tl = new TimelineLite();
-							tl.staggerFrom(this.root.querySelectorAll('.words > *'), 0.75, {delay: 1, scale:"5%", autoAlpha:0}, 0.3);
+							//TweenLite.to(path, 1, { strokeDasharray: segment.strokeDasharray(begin, end) });
 
-							var controller = new ScrollMagic.Controller();
+							// var tl = new TimelineLite();
+							// tl.staggerFrom(this.root.querySelectorAll('.words > *'), 0.75, {delay: 1, scale:"5%", autoAlpha:0}, 0.3);
+							this.set("controller", new ScrollMagic.Controller());
 							// define movement of panels
 							var wipeAnimation = new TimelineMax()
-								.fromTo(this.$.tech, 1, {x: "-100%", autoAlpha: 1}, {x: "0%", ease: Linear.easeNone})  // in from left
-								.fromTo(this.$.meth,    1, {x:  "100%", autoAlpha: 1}, {x: "0%", ease: Linear.easeNone})  // in from right
+								.fromTo(this.$.digital, 1, {x: "125%", autoAlpha: 1}, {x: "0%", ease: Linear.easeIn})  // in from left
+								//.insert(TweenLite.fromTo(this.$.digital, 1, {x:  "0%", autoAlpha: 1}, {x: "-125%", ease: Linear.easeIn}))
+								//.insert(TweenLite.fromTo(this.$.meth, 1, {x:  "125%", autoAlpha: 1}, {x: "0%", ease: Linear.easeIn}), 0)
+								.fromTo(this.$.meth, 1, {x: "-125%", autoAlpha: 1}, {x: "0%", ease: Linear.easeIn})
+								.fromTo(this.$.contact,    1, {y:  "125%", autoAlpha: 1}, {y: "0%", ease: Linear.easeIn})  // in from right
 							//	.fromTo(this.root.querySelector("section.panel.bordeaux"), 1, {y: "-100%"}, {y: "0%", ease: Linear.easeNone}); // in from top
 							// create scene to pin and link animation
 							new ScrollMagic.Scene({
 									triggerElement: this.$.container,
 									triggerHook: "onLeave",
-									duration: "100%"
+									duration: "400%"
 								})
 								.setPin(this.$.container)
 								.setTween(wipeAnimation)
 								.addIndicators() // add indicators (requires plugin)
-								.addTo(controller);
-      }
+								.addTo(this.controller);
+
+
+								// var svgs = this.root.querySelector(".words")
+								// Snap.load("images/icons/internet-speed.svg", function (image) {
+								// 	//s.append(image);
+								// 	var icon = image.select("#icon_19_");
+								// 	var path = image.select("#speed_2_");
+								// 	//s.attr({viewBox:[0,0,64,64].join(',')});
+								// 	//s.append(image);
+								// 	var s = Snap(128,128).attr({viewBox:[0,0,1010,1010].join(',')});
+								// 	s.append(icon);
+								// 	svgs.innerHTML = s;
+
+								// 	TweenLite.from(svgs.querySelector("#icon_19_"), 2, { scale: 0, ease: Elastic.easeOut, delay: 1, transformOrigin:"50% 50%" });
+
+								// 	//new Segment(svgs.querySelector("#icon_19_"), 0, 100).draw('0', '100%', 1.5, {ease: Elastic.easeIn});
+								// 	//TweenLite.to(path, 1, { strokeDasharray: new Segment(path, 0, 100).strokeDasharray(0, 100) });
+								// })
+
+      			}
 
 						connectedCallback() {
   						super.connectedCallback();
-
+							window.addEventListener('resize', this.onResize.bind(this));
+							
 							//buf fix otherwise text is display
 							setTimeout(function() {
-								this.$.info.style.visibility = "initial";
+								this.$.container.removeAttribute("hidden");
 							}.bind(this), 250);
+						}
+
+						onResize() {
+							this.controller.update();
 						}
 
 			
