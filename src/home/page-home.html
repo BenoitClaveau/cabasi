@@ -162,6 +162,8 @@
 
       constructor() {
         super();
+
+				console.log("container", this.$.container)
 				this.set("container", this.$.container);
         //TweenLite.set(this.$.content, {visibility:"visible"})
         //var tl = new TimelineLite();
@@ -177,6 +179,8 @@
 							// var tl = new TimelineLite();
 							// tl.staggerFrom(this.root.querySelectorAll('.words > *'), 0.75, {delay: 1, scale:"5%", autoAlpha:0}, 0.3);
 							this.set("controller", new ScrollMagic.Controller());
+
+							console.log("digital", this.$.digital)
 							// define movement of panels
 							var wipeAnimation = new TimelineMax()
 								.fromTo(this.$.digital, 1, {x: "125%", autoAlpha: 1}, {x: "0%", ease: Linear.easeIn})  // in from left
