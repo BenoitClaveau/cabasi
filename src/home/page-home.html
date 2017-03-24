@@ -138,7 +138,7 @@
 		</div>
 
 	</div>
-	
+
 </div>
 
   </template>
@@ -197,15 +197,19 @@
 								.fromTo(this.$.contact,    1, {y:  "125%", autoAlpha: 1}, {y: "0%", ease: Linear.easeIn})  // in from right
 							//	.fromTo(this.root.querySelector("section.panel.bordeaux"), 1, {y: "-100%"}, {y: "0%", ease: Linear.easeNone}); // in from top
 							// create scene to pin and link animation
+
+							var controller = this.controller;
+							var container = this.$.container;
+
 							new ScrollMagic.Scene({
-									triggerElement: this.$.container,
+									triggerElement: container,
 									triggerHook: "onLeave",
 									duration: "400%"
 								})
-								.setPin(this.$.container)
+								.setPin(container)
 								.setTween(wipeAnimation)
 								//.addIndicators() // add indicators (requires plugin)
-								.addTo(this.controller);
+								.addTo(controller);
 
 								// var svgs = this.root.querySelector(".words")
 								// Snap.load("images/icons/internet-speed.svg", function (image) {
