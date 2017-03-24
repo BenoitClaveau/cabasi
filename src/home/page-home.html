@@ -10,23 +10,29 @@
   <template>
     <style include="shared-styles">
 			#container {
-				height: 100%;
-				width: 100%;
+				width: 100vw;
+				height: 100vh;
 				overflow: visible;
 				transform: translate3d(0,0,0);
+				z-index: 2;
 			}
 			#container > section {
-				height: 100vh;
-				width: 100%;
 				position: absolute;
+				top: 0;
+				right: 0;
+				left: 0;
+				bottom: 0;
+				
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
 			}
 			#main {
+				width: 100vw;
 				height: 100vh;
-				width: 100%;
+				z-index: 3;
+
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -102,7 +108,7 @@
 			</div>
 		</section>
 
-		<div id="container" hidden>
+		<div id="container">
 
 			<section id="info">
 				<article>
@@ -233,9 +239,9 @@
 
 							
 							// //buf fix otherwise text is display
-							setTimeout(function() {
-								this.$.container.removeAttribute("hidden");
-							}.bind(this), 250);
+							// setTimeout(function() {
+							// 	this.$.container.removeAttribute("hidden");
+							// }.bind(this), 250);
 						}
 
 						onResize() {
