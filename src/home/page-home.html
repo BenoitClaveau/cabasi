@@ -219,10 +219,12 @@
   						super.connectedCallback();
 							window.addEventListener('resize', this.onResize.bind(this));
 							
-							//buf fix otherwise text is display
-							setTimeout(function() {
-								this.$.container.removeAttribute("hidden");
-							}.bind(this), 250);
+
+							
+							// //buf fix otherwise text is display
+							// setTimeout(function() {
+							// 	this.$.container.removeAttribute("hidden");
+							// }.bind(this), 250);
 						}
 
 						onResize() {
