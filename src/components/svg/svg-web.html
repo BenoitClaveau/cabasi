@@ -58,7 +58,10 @@
 
       constructor() {
         super();
-        console.log("svg-web", this.$.svg)
+        
+      }
+      connectedCallback() {
+        super.connectedCallback();
         TweenLite.from(this.$.svg, 0.5, { autoAlpha: 0, ease: Linear.easeOut, delay: 1.5, transformOrigin:"50% 50%" });
         TweenLite.from(this.$.screen, 0.5, { autoAlpha: 0, y: "-=50%", ease: Bounce.easeOut, delay: 1.5, transformOrigin:"50% 50%" });
         TweenLite.from(this.$.text, 1, { autoAlpha: 0, ease: Linear.easeOut, delay: 1.5 });

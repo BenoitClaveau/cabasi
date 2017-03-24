@@ -96,13 +96,13 @@
 		<section id="main">
 			<svg-cabasi></svg-cabasi>
 			<div class="badges row center wrap">
-				<!--<svg-web></svg-web>
+				<svg-web></svg-web>
 				<svg-intranet></svg-intranet>
-				<svg-mobile></svg-mobile>-->
+				<svg-mobile></svg-mobile>
 			</div>
 		</section>
 
-		<div id="container">
+		<div id="container" hidden>
 
 			<section id="info">
 				<article>
@@ -167,7 +167,6 @@
 
       constructor() {
         super();
-				console.log("container", this.$.container)
 				this.set("container", this.$.container);
         //TweenLite.set(this.$.content, {visibility:"visible"})
         //var tl = new TimelineLite();
@@ -184,7 +183,6 @@
 							// tl.staggerFrom(this.root.querySelectorAll('.words > *'), 0.75, {delay: 1, scale:"5%", autoAlpha:0}, 0.3);
 							this.set("controller", new ScrollMagic.Controller());
 
-							console.log("digital", this.$.digital)
 							// define movement of panels
 							var wipeAnimation = new TimelineMax()
 								.fromTo(this.$.digital, 1, {x: "125%", autoAlpha: 1}, {x: "0%", ease: Linear.easeIn})  // in from left
@@ -198,20 +196,16 @@
 							var controller = this.controller;
 							var container = this.$.container;
 
-							try {
-								new ScrollMagic.Scene({
-										triggerElement: container,
-										triggerHook: "onLeave",
-										duration: "400%"
-									})
-									.setPin(container)
-									.setTween(wipeAnimation)
-									//.addIndicators() // add indicators (requires plugin)
-									.addTo(controller);
-							}
-							catch(error) {
-								console.error(error)
-							}
+							new ScrollMagic.Scene({
+									triggerElement: container,
+									triggerHook: "onLeave",
+									duration: "400%"
+								})
+								.setPin(container)
+								.setTween(wipeAnimation)
+								//.addIndicators() // add indicators (requires plugin)
+								.addTo(controller);
+
 
 								// var svgs = this.root.querySelector(".words")
 								// Snap.load("images/icons/internet-speed.svg", function (image) {
@@ -233,21 +227,19 @@
       			}
 
 						connectedCallback() {
-							console.log("connectedCallback")
   						super.connectedCallback();
 							window.addEventListener('resize', this.onResize.bind(this));
 							
 
 							
 							// //buf fix otherwise text is display
-							// setTimeout(function() {
-							// 	this.$.container.removeAttribute("hidden");
-							// }.bind(this), 250);
+							setTimeout(function() {
+								this.$.container.removeAttribute("hidden");
+							}.bind(this), 250);
 						}
 
 						onResize() {
 							if (!this.controller) return;
-							console.log("onResize", this.controller)
 							this.controller.update();
 						}
 			

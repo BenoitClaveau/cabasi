@@ -57,7 +57,10 @@
 
       constructor() {
         super();
-        console.log("svg-speed", this.$.svg)
+        
+      }
+      connectedCallback() {
+        super.connectedCallback();
         TweenLite.from(this.$.svg, 0.5, { autoAlpha: 0, ease: Linear.easeOut, delay: 3, transformOrigin:"50% 50%" });
         TweenLite.from(this.$.text, 1, { autoAlpha: 0, ease: Linear.easeOut, delay: 3 });
         TweenLite.from(this.$.arrow, 3, { rotation: -90, ease: Elastic.easeOut, delay: 3, transformOrigin:"-25% 125%" });

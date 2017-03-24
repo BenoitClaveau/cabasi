@@ -62,7 +62,6 @@
       }
 
       openChanged(open) {
-        console.log("openChanged", this.$.backdrop, this.$.nav)
         var tl = new TimelineLite();
         if (open) {
           tl.to(this.$.backdrop, 0.2, { autoAlpha:1, ease:Linear.easeNone});
