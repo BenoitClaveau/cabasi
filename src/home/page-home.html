@@ -94,6 +94,7 @@
 	<div id="template">
 
 		<section id="main">
+			<svg-cabasi></svg-cabasi>
 			<div class="badges row center wrap">
 				<svg-web></svg-web>
 				<svg-intranet></svg-intranet>
@@ -129,7 +130,7 @@
 				<article>
 					<h2>
 						<svg-mail></svg-mail>
-						<span>VOUS VOULEZ NOUS CONTACTER</span>
+						<span>CONTACTEZ NOUS</span>
 					</h2>
 					<p><a href="mailto:benoit.claveau@gmail.com">benoit.claveau@gmail.com</a></p>
 				</article>
@@ -197,15 +198,20 @@
 							var controller = this.controller;
 							var container = this.$.container;
 
-							new ScrollMagic.Scene({
-									triggerElement: container,
-									triggerHook: "onLeave",
-									duration: "400%"
-								})
-								.setPin(container)
-								.setTween(wipeAnimation)
-								//.addIndicators() // add indicators (requires plugin)
-								.addTo(controller);
+							try {
+								new ScrollMagic.Scene({
+										triggerElement: container,
+										triggerHook: "onLeave",
+										duration: "400%"
+									})
+									.setPin(container)
+									.setTween(wipeAnimation)
+									//.addIndicators() // add indicators (requires plugin)
+									.addTo(controller);
+							}
+							catch(error) {
+								console.error(error)
+							}
 
 								// var svgs = this.root.querySelector(".words")
 								// Snap.load("images/icons/internet-speed.svg", function (image) {
