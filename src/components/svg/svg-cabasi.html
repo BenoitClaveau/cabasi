@@ -52,7 +52,7 @@
         super();
       }
 
-      ready() {
+      connectedCallback() {
         new Segment(this.$.c, 0, 100).draw('0', '100%', 1.5, {easing: Elastic.easeIn});
         new Segment(this.$.ca, 0, 100).draw('0', '100%', 1.5, {easing: Elastic.easeIn});
         new Segment(this.$.cab, 0, 100).draw('0', '100%', 1.5, {easing: Elastic.easeIn});
