@@ -220,6 +220,7 @@
       			}
 
 						connectedCallback() {
+							console.log("connectedCallback")
   						super.connectedCallback();
 							window.addEventListener('resize', this.onResize.bind(this));
 							
@@ -232,6 +233,8 @@
 						}
 
 						onResize() {
+							if (!this.controller) return;
+							console.log("onResize", this.controller)
 							this.controller.update();
 						}
 			

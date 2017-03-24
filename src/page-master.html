@@ -119,13 +119,13 @@
         this.categoryName = this.routeData.page || "home";
         Polymer.RenderStatus.afterNextRender(this, function() {
           Polymer.importHref(this.resolveUrl(this.categoryName + '/page-' + this.categoryName + '.html'), function() {
+            console.log(this.categoryName + '/page-' + this.categoryName + '.html', "loaded")
               //this.$["app-drawer-layout"].resetLayout();
           }.bind(this));
         });
       }
 
       categoriesChanged(categories) {
-        console.log("change", categories)
       }
 
       menuOpenChanged(menuOpen) {
