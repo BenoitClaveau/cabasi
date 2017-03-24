@@ -94,10 +94,10 @@
 	<div id="template">
 
 		<section id="main">
-			<!--<div class="badges row center wrap">-->
-				<!--<svg-web></svg-web>
+			<div class="badges row center wrap">
+				<svg-web></svg-web>
 				<svg-intranet></svg-intranet>
-				<svg-mobile></svg-mobile>-->
+				<svg-mobile></svg-mobile>
 			</div>
 		</section>
 
@@ -166,10 +166,6 @@
 
       constructor() {
         super();
-			}
-
-			ready() {
-
 				console.log("container", this.$.container)
 				this.set("container", this.$.container);
         //TweenLite.set(this.$.content, {visibility:"visible"})
