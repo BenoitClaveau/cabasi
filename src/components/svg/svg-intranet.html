@@ -109,6 +109,7 @@
 
       constructor() {
         super();
+				console.log("svg-intranet", this.$.svg)
         TweenLite.from(this.$.svg, 0.5, { autoAlpha: 0, ease: Linear.easeOut, delay: 2.0 });
         TweenLite.from(this.$.line, 2, { autoAlpha: 0, scale: 0.8, ease: Elastic.easeOut, delay: 2.0, transformOrigin:"50% 50%" });
         TweenLite.from(this.$.text, 1, { autoAlpha: 0, ease: Linear.easeOut, delay: 2.0 });

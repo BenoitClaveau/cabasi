@@ -45,6 +45,7 @@
 
       constructor() {
         super();
+        console.log("svg-mobile", this.$.svg)
         TweenLite.from(this.$.svg, 0.5, { autoAlpha: 0, ease: Linear.easeOut, delay: 2.5 });
         TweenLite.fromTo(this.$.svg, 2, { rotation: -60 }, {rotation: -10, ease: Elastic.easeOut, delay: 2.5, transformOrigin:"50% 50%"});
         TweenLite.from(this.$.text, 1, { autoAlpha: 0, ease: Linear.easeOut, delay: 2.5 });

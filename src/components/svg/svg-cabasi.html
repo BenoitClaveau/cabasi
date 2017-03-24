@@ -50,6 +50,7 @@
 
       constructor() {
         super();
+        console.log("svg-cabasi", this.$.c)
 
         new Segment(this.$.c, 0, 100).draw('0', '100%', 1.5, {easing: Elastic.easeIn});
         new Segment(this.$.ca, 0, 100).draw('0', '100%', 1.5, {easing: Elastic.easeIn});
