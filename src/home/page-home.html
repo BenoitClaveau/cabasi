@@ -6,12 +6,15 @@
 <link rel="import" href="../components/svg/svg-mobile.html">
 <link rel="import" href="../components/svg/svg-mail.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 
 <dom-module id="page-home">
   <template>
     <style include="shared-styles">
+			:host {
+				--paper-toast-background-color: rgb(202, 94, 21);
+				--paper-toast-color: #FFF;
+			}
 			#container {
 				width: 100vw;
 				height: 100vh;
@@ -117,14 +120,7 @@
 	on-error="onError">
 </iron-ajax>
 
-<paper-dialog id="dialog" modal>
-	<paper-dialog-scrollable>
-		<p>Votre message vient d'être envoyé.</p>
-	</paper-dialog-scrollable>
-	<div class="buttons">
-		<paper-button dialog-dismiss>Ok</paper-button>
-	</div>
-</paper-dialog>
+<paper-toast id="sent" text="Votre message vient d'être envoyé."></paper-toast>
 
 <div id="wrapper">
 	<div id="template">
@@ -293,11 +289,11 @@
 						onResponse(e) {
 							this.set("body.message", null);
 							this.set("body._replyto", null);
-							this.$.dialog.open();
+							this.$.sent.open();
 						}
 
 						onError(e) {
-							console.error(e)
+							console.log(e)
 						}
 
 						submit() {
