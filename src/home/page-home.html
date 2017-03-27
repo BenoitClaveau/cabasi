@@ -217,6 +217,10 @@
 								//.addIndicators() // add indicators (requires plugin)
 								.addTo(controller);
 
+							Polymer.RenderStatus.afterNextRender(this, function() {
+								this.$.container.removeAttribute("hidden");
+							}.bind(this));
+
 
 								// var svgs = this.root.querySelector(".words")
 								// Snap.load("images/icons/internet-speed.svg", function (image) {
@@ -240,7 +244,6 @@
 						connectedCallback() {
   						super.connectedCallback();
 							window.addEventListener('resize', this.onResize.bind(this));
-							this.$.container.removeAttribute("hidden");
 						}
 
 						onResize() {
