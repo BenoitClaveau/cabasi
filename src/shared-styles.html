@@ -25,6 +25,7 @@
         visibility: hidden !important;
         animation: none;
       }
+      button,
       .button {
         background-color: var(--accent-color);
         border-radius: 4px;
@@ -32,6 +33,21 @@
         color: var(--white-color);
         text-align: center;
         text-transform: uppercase;
+        line-height: 36px;
+      }
+      textarea,
+      input[type="email"] {
+        border: 0px;
+        flex: 1 0 100%;
+        padding: 8px;
+        line-height: 36px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      form > * {
+        margin: 8px 0;
       }
     </style>
   </template>

@@ -37,6 +37,7 @@
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
+				background-color: #000000;
 				background-image: url(../../images/background/code3.jpeg);
 				background-size: cover;
 				color: var(--light-font-color);
@@ -138,7 +139,11 @@
 						<svg-mail></svg-mail>
 						<span>CONTACTEZ NOUS</span>
 					</h2>
-					<p><a href="mailto:benoit.claveau@gmail.com">benoit.claveau@gmail.com</a></p>
+					<form method="POST" action="http://formspree.io/benoit.claveau@gmail.com">
+						<input name="email" placeholder="Email" type="email"></input>
+						<textarea name="message" placeholder="Lassez nous votre message"></textarea>
+						<button type="submit">Envoyer</button>
+					</form>
 				</article>
 			</section>
 
@@ -235,13 +240,6 @@
 						connectedCallback() {
   						super.connectedCallback();
 							window.addEventListener('resize', this.onResize.bind(this));
-							
-
-							
-							// //buf fix otherwise text is display
-							// setTimeout(function() {
-							// 	this.$.container.removeAttribute("hidden");
-							// }.bind(this), 250);
 						}
 
 						onResize() {
