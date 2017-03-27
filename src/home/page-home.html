@@ -6,6 +6,8 @@
 <link rel="import" href="../components/svg/svg-mobile.html">
 <link rel="import" href="../components/svg/svg-mail.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 
 <dom-module id="page-home">
   <template>
@@ -115,6 +117,15 @@
 	on-error="onError">
 </iron-ajax>
 
+<paper-dialog id="dialog" modal>
+	<paper-dialog-scrollable>
+		<p>Votre message vient d'être envoyé.</p>
+	</paper-dialog-scrollable>
+	<div class="buttons">
+		<paper-button dialog-dismiss>Ok</paper-button>
+	</div>
+</paper-dialog>
+
 <div id="wrapper">
 	<div id="template">
 
@@ -158,8 +169,8 @@
 						<span>CONTACTEZ NOUS</span>
 					</h2>
 					<div id="contact-form">
-						<input placeholder="Email" type="email" value="[[body._replyto]]"></input>
-						<textarea value="[[body.message]]" placeholder="Lassez nous votre message"></textarea>
+						<input placeholder="Email" type="email" value="{{body._replyto::input}}"></input>
+						<textarea value="{{body.message::input}}" placeholder="Lassez nous votre message"></textarea>
 						<button on-click="submit">Envoyer</button>
 					</div>
 				</article>
@@ -280,7 +291,9 @@
 						}
 
 						onResponse(e) {
-							console.log(e)
+							this.set("body.message", null);
+							this.set("body._replyto", null);
+							this.$.dialog.open();
 						}
 
 						onError(e) {
@@ -289,8 +302,6 @@
 
 						submit() {
 							this.$.ajax.generateRequest();
-							this.set("body.message", null);
-							this.set("body._replyto", null);
 						}
 			
     }
