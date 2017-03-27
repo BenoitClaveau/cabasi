@@ -47,7 +47,7 @@
 				background-color: rgb(226, 226, 226);
 			}
 			#contact h2 {
-				color: #ff4500;
+				color: rgb(202, 94, 21);
 				line-height: 40px;
 				display: flex;
 			}
@@ -109,7 +109,7 @@
 			</div>
 		</section>
 
-		<div id="container" hidden>
+		<div id="container">
 
 			<section id="info">
 				<article>
@@ -217,9 +217,9 @@
 								//.addIndicators() // add indicators (requires plugin)
 								.addTo(controller);
 
-							Polymer.RenderStatus.afterNextRender(this, function() {
-								this.$.container.removeAttribute("hidden");
-							}.bind(this));
+							// Polymer.RenderStatus.afterNextRender(this, function() {
+							// 	this.$.container.removeAttribute("hidden");
+							// }.bind(this));
 
 
 								// var svgs = this.root.querySelector(".words")
