@@ -24,9 +24,14 @@
       [hidden] {
         display: none !important;
       }
+      :focus {
+        outline: 1px solid rgba(255, 69, 0, 0.5);
+        outline-offset: 0px;
+      }
       button,
       .button {
         background-color: var(--accent-color);
+        border: none;
         border-radius: 4px;
         text-decoration: none;
         color: var(--white-color);
@@ -40,6 +45,9 @@
         flex: 1 0 100%;
         padding: 8px;
         line-height: 36px;
+      }
+      textarea {
+        resize: vertical;
       }
       form {
         display: flex;
