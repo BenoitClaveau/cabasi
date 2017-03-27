@@ -5,6 +5,7 @@
 <link rel="import" href="../components/svg/svg-web.html">
 <link rel="import" href="../components/svg/svg-mobile.html">
 <link rel="import" href="../components/svg/svg-mail.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="page-home">
   <template>
@@ -61,6 +62,13 @@
 			#contact p a {
 				color: rgb(80, 79, 77);
 			}
+			#contact-form {
+				display: flex;
+				flex-direction: column;
+			}
+			#contact-form > * {
+				margin: 8px 0;
+			}
 			#digital {
 				background-color: rgb(80, 79, 77);
     		color: rgb(226, 226, 226);
@@ -99,7 +107,7 @@
 <iron-ajax
 	id="ajax"
 	url="https://formspree.io/benoit.claveau@gmail.com"
-	method="post"
+	method="POST"
 	content-type="application/json"
 	body="[[body]]"
 	handle-as="json"
@@ -149,9 +157,9 @@
 						<svg-mail></svg-mail>
 						<span>CONTACTEZ NOUS</span>
 					</h2>
-					<div class="column">
-						<input placeholder="Email" type="email" value="{{body.email}}"></input>
-						<textarea value="{{body.message}}" placeholder="Lassez nous votre message"></textarea>
+					<div id="contact-form">
+						<input placeholder="Email" type="email" value="[[body._replyto]]"></input>
+						<textarea value="[[body.message]]" placeholder="Lassez nous votre message"></textarea>
 						<button on-click="submit">Envoyer</button>
 					</div>
 				</article>
@@ -187,8 +195,9 @@
 						type: Object,
 						value: function() {
 							return {
-								email: null,
-								message: null
+								_replyto: null,
+								message: null,
+								_subject: "CABASI Contact"
 							}
 						}
 					}
@@ -278,10 +287,10 @@
 							console.error(e)
 						}
 
-						submit(){
+						submit() {
 							this.$.ajax.generateRequest();
 							this.set("body.message", null);
-							this.set("body.email", null);
+							this.set("body._replyto", null);
 						}
 			
     }
