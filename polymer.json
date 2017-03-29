@@ -3,15 +3,7 @@
   "shell": "src/cabasi-app.html",
   "fragments": [
     "src/page-master.html",
-    "src/page-sign-in.html",
-    "src/home/page-home.html",
-    "src/users/page-users.html",
-    "src/wind-farms/page-wind-farms.html",
-    "src/trades/page-trades.html",
-    "src/account/page-account.html",
-    "src/notifications-archives/page-notifications-archives.html",
-    "src/notifications/page-notifications.html",
-    "src/counterparties/page-counterparties.html"
+    "src/home/page-home.html"
   ],
   "sources": [
     "src/**/*",
